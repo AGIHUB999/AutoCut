@@ -15,6 +15,8 @@ AutoCut is an AI-based video editing tool designed for content creators, capable
 - Rhythm change detection to capture musical climaxes
 - Visualization of analysis results for intuitive display of the detection process
 - Customizable parameters for flexible editing effects
+- **Low-memory mode** for processing large video files
+- **FFmpeg-based implementation** for improved compatibility and performance
 
 ### Installation
 
@@ -30,6 +32,12 @@ pip install -r requirements.txt
 python autocut.py input_video.mp4 output_video.mp4
 ```
 
+#### For Large Video Files (FFmpeg Version)
+
+```bash
+python autocut_ffmpeg.py input_video.mp4 output_video.mp4
+```
+
 #### Advanced Parameters
 
 ```bash
@@ -43,6 +51,8 @@ Parameter description:
 - `--count`: Number of highlight clips to extract, default 5
 - `--no-applause`: Disable applause detection
 - `--no-tempo`: Disable rhythm change detection
+- `--low-memory`: Enable low-memory mode for large video files (default: auto)
+- `--chunk-size`: Size of chunks for processing in low-memory mode (seconds), default 300
 
 ### Examples
 
@@ -52,6 +62,9 @@ python autocut.py concert.mp4 highlights.mp4 --min-duration 3 --max-duration 20 
 
 # Lower the threshold to detect more potential highlight moments
 python autocut.py concert.mp4 highlights.mp4 --threshold 0.5
+
+# Process a large video file with FFmpeg version
+python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8 --scene-threshold 0.3
 ```
 
 ### How It Works
@@ -62,11 +75,26 @@ python autocut.py concert.mp4 highlights.mp4 --threshold 0.5
 4. **Intelligent Editing**: Select the highest-scoring clips, add fade-in/fade-out effects, generate highlight compilation
 5. **Visualization Analysis**: Generate analysis charts showing the detection process and results
 
+### Versions
+
+#### Standard Version (`autocut.py`)
+- Uses Python libraries for audio and video processing
+- Best for regular-sized videos (up to ~1 hour)
+- Includes low-memory mode for larger files
+
+#### FFmpeg Version (`autocut_ffmpeg.py`)
+- Uses FFmpeg for audio and video processing
+- Optimized for very large video files (multiple hours)
+- Significantly reduced memory usage
+- More robust error handling and recovery
+- Requires FFmpeg to be installed on your system
+
 ### Notes
 
 - Processing large video files may require significant time
 - High-quality video sources are recommended for better detection results
 - Parameters may need adjustment for different types of concerts to achieve optimal results
+- For videos larger than 2 hours, use the FFmpeg version
 
 ---
 
@@ -83,6 +111,8 @@ AutoCut是一个基于AI的视频自动剪辑工具，专为内容创作者设�
 - 节奏变化检测，捕捉音乐高潮
 - 可视化分析结果，直观展示检测过程
 - 支持自定义参数，灵活调整剪辑效果
+- **低内存模式**，可处理大型视频文件
+- **基于FFmpeg的实现**，提高兼容性和性能
 
 ### 安装依赖
 
@@ -98,6 +128,12 @@ pip install -r requirements.txt
 python autocut.py 输入视频.mp4 输出视频.mp4
 ```
 
+#### 处理大型视频文件（FFmpeg版本）
+
+```bash
+python autocut_ffmpeg.py 输入视频.mp4 输出视频.mp4
+```
+
 #### 高级参数
 
 ```bash
@@ -111,6 +147,8 @@ python autocut.py 输入视频.mp4 输出视频.mp4 --min-duration 5 --max-durat
 - `--count`: 要提取的高潮片段数量，默认5个
 - `--no-applause`: 禁用掌声检测
 - `--no-tempo`: 禁用节奏变化检测
+- `--low-memory`: 启用低内存模式处理大型视频文件（默认：自动）
+- `--chunk-size`: 低内存模式下的处理块大小（秒），默认300
 
 ### 示例
 
@@ -120,6 +158,9 @@ python autocut.py concert.mp4 highlights.mp4 --min-duration 3 --max-duration 20 
 
 # 降低阈值，检测更多可能的高潮部分
 python autocut.py concert.mp4 highlights.mp4 --threshold 0.5
+
+# 使用FFmpeg版本处理大型视频文件
+python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8 --scene-threshold 0.3
 ```
 
 ### 工作原理
@@ -130,11 +171,26 @@ python autocut.py concert.mp4 highlights.mp4 --threshold 0.5
 4. **智能剪辑**：选择评分最高的片段，添加淡入淡出效果，生成精彩集锦
 5. **可视化分析**：生成分析图表，展示检测过程和结果
 
+### 版本说明
+
+#### 标准版本 (`autocut.py`)
+- 使用Python库进行音频和视频处理
+- 适合常规大小的视频（最长约1小时）
+- 包含低内存模式，可处理较大文件
+
+#### FFmpeg版本 (`autocut_ffmpeg.py`)
+- 使用FFmpeg进行音频和视频处理
+- 专为超大型视频文件优化（数小时长度）
+- 显著降低内存使用量
+- 更强大的错误处理和恢复机制
+- 需要系统安装FFmpeg
+
 ### 注意事项
 
 - 处理大型视频文件可能需要较长时间
 - 推荐使用高质量的视频源以获得更好的检测效果
 - 对于不同类型的演唱会，可能需要调整参数以获得最佳效果
+- 对于超过2小时的视频，建议使用FFmpeg版本
 
 ---
 
@@ -151,6 +207,8 @@ AutoCut est un outil d'édition vidéo basé sur l'IA, conçu pour les créateur
 - Détection des changements de rythme pour capturer les apogées musicales
 - Visualisation des résultats d'analyse pour un affichage intuitif du processus de détection
 - Paramètres personnalisables pour des effets d'édition flexibles
+- **Mode faible mémoire** pour traiter les fichiers vidéo volumineux
+- **Implémentation basée sur FFmpeg** pour une compatibilité et des performances améliorées
 
 ### Installation
 
@@ -166,6 +224,12 @@ pip install -r requirements.txt
 python autocut.py video_entree.mp4 video_sortie.mp4
 ```
 
+#### Pour les fichiers vidéo volumineux (version FFmpeg)
+
+```bash
+python autocut_ffmpeg.py video_entree.mp4 video_sortie.mp4
+```
+
 #### Paramètres avancés
 
 ```bash
@@ -179,6 +243,8 @@ Description des paramètres :
 - `--count` : Nombre de clips forts à extraire, par défaut 5
 - `--no-applause` : Désactiver la détection des applaudissements
 - `--no-tempo` : Désactiver la détection des changements de rythme
+- `--low-memory` : Activer le mode faible mémoire pour les fichiers vidéo volumineux (par défaut : auto)
+- `--chunk-size` : Taille des morceaux pour le traitement en mode faible mémoire (secondes), par défaut 300
 
 ### Exemples
 
@@ -188,6 +254,9 @@ python autocut.py concert.mp4 highlights.mp4 --min-duration 3 --max-duration 20 
 
 # Abaisser le seuil pour détecter plus de moments forts potentiels
 python autocut.py concert.mp4 highlights.mp4 --threshold 0.5
+
+# Traiter un fichier vidéo volumineux avec la version FFmpeg
+python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8 --scene-threshold 0.3
 ```
 
 ### Comment ça fonctionne
@@ -198,8 +267,23 @@ python autocut.py concert.mp4 highlights.mp4 --threshold 0.5
 4. **Édition intelligente** : Sélection des clips les mieux notés, ajout d'effets de fondu, génération d'une compilation de moments forts
 5. **Analyse visuelle** : Génération de graphiques d'analyse montrant le processus de détection et les résultats
 
+### Versions
+
+#### Version standard (`autocut.py`)
+- Utilise des bibliothèques Python pour le traitement audio et vidéo
+- Idéal pour les vidéos de taille normale (jusqu'à environ 1 heure)
+- Inclut un mode faible mémoire pour les fichiers plus volumineux
+
+#### Version FFmpeg (`autocut_ffmpeg.py`)
+- Utilise FFmpeg pour le traitement audio et vidéo
+- Optimisé pour les fichiers vidéo très volumineux (plusieurs heures)
+- Utilisation de la mémoire considérablement réduite
+- Gestion des erreurs et récupération plus robustes
+- Nécessite que FFmpeg soit installé sur votre système
+
 ### Remarques
 
 - Le traitement de fichiers vidéo volumineux peut nécessiter un temps considérable
 - Des sources vidéo de haute qualité sont recommandées pour de meilleurs résultats de détection
 - Les paramètres peuvent nécessiter des ajustements pour différents types de concerts afin d'obtenir des résultats optimaux
+- Pour les vidéos de plus de 2 heures, utilisez la version FFmpeg
