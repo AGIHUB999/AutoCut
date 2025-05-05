@@ -17,6 +17,7 @@ AutoCut is an AI-based video editing tool designed for content creators, capable
 - Customizable parameters for flexible editing effects
 - **Low-memory mode** for processing large video files
 - **FFmpeg-based implementation** for improved compatibility and performance
+- **Vertical video conversion** for short-video platforms (TikTok, Instagram, etc.)
 
 ### Installation
 
@@ -38,6 +39,12 @@ python autocut.py input_video.mp4 output_video.mp4
 python autocut_ffmpeg.py input_video.mp4 output_video.mp4
 ```
 
+#### Convert to Vertical Format
+
+```bash
+python vertical_converter.py input_video.mp4 vertical_output.mp4
+```
+
 #### Advanced Parameters
 
 ```bash
@@ -54,6 +61,23 @@ Parameter description:
 - `--low-memory`: Enable low-memory mode for large video files (default: auto)
 - `--chunk-size`: Size of chunks for processing in low-memory mode (seconds), default 300
 
+#### Vertical Converter Parameters
+
+```bash
+python vertical_converter.py input_video.mp4 vertical_output.mp4 --focus face --blur 50 --caption "Concert Highlights"
+```
+
+Parameter description:
+- `--width`: Output video width, default 1080
+- `--height`: Output video height, default 1920
+- `--focus`: Focus mode (auto/center/face/motion), default auto
+- `--blur`: Background blur level (0-100), default 30
+- `--bg-color`: Background color, default black
+- `--zoom`: Zoom factor, default 1.2
+- `--quality`: Output quality (low/medium/high), default medium
+- `--caption`: Add caption text to the video
+- `--gpu`: Use GPU acceleration if available
+
 ### Examples
 
 ```bash
@@ -65,6 +89,10 @@ python autocut.py concert.mp4 highlights.mp4 --threshold 0.5
 
 # Process a large video file with FFmpeg version
 python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8 --scene-threshold 0.3
+
+# Complete workflow: extract highlights and convert to vertical format
+python autocut_ffmpeg.py concert.mp4 highlights.mp4
+python vertical_converter.py highlights.mp4 vertical_highlights.mp4 --focus face --caption "Amazing Concert"
 ```
 
 ### How It Works
@@ -74,6 +102,7 @@ python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8
 3. **Highlight Detection**: Detect highlight moments based on comprehensive scoring of multiple features
 4. **Intelligent Editing**: Select the highest-scoring clips, add fade-in/fade-out effects, generate highlight compilation
 5. **Visualization Analysis**: Generate analysis charts showing the detection process and results
+6. **Vertical Conversion** (optional): Convert horizontal video to vertical format for short-video platforms
 
 ### Versions
 
@@ -89,12 +118,19 @@ python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8
 - More robust error handling and recovery
 - Requires FFmpeg to be installed on your system
 
+#### Vertical Converter (`vertical_converter.py`)
+- Converts horizontal videos to vertical format (9:16 aspect ratio)
+- Intelligent focus detection (faces, motion)
+- Background blur and custom styling options
+- Optimized for short-video platforms
+
 ### Notes
 
 - Processing large video files may require significant time
 - High-quality video sources are recommended for better detection results
 - Parameters may need adjustment for different types of concerts to achieve optimal results
 - For videos larger than 2 hours, use the FFmpeg version
+- Vertical conversion works best with videos that have clear focal points
 
 ---
 
@@ -113,6 +149,7 @@ AutoCut是一个基于AI的视频自动剪辑工具，专为内容创作者设�
 - 支持自定义参数，灵活调整剪辑效果
 - **低内存模式**，可处理大型视频文件
 - **基于FFmpeg的实现**，提高兼容性和性能
+- **竖屏视频转换**，适配抖音、快手等短视频平台
 
 ### 安装依赖
 
@@ -134,6 +171,12 @@ python autocut.py 输入视频.mp4 输出视频.mp4
 python autocut_ffmpeg.py 输入视频.mp4 输出视频.mp4
 ```
 
+#### 转换为竖屏格式
+
+```bash
+python vertical_converter.py 输入视频.mp4 竖屏输出.mp4
+```
+
 #### 高级参数
 
 ```bash
@@ -150,6 +193,23 @@ python autocut.py 输入视频.mp4 输出视频.mp4 --min-duration 5 --max-durat
 - `--low-memory`: 启用低内存模式处理大型视频文件（默认：自动）
 - `--chunk-size`: 低内存模式下的处理块大小（秒），默认300
 
+#### 竖屏转换参数
+
+```bash
+python vertical_converter.py 输入视频.mp4 竖屏输出.mp4 --focus face --blur 50 --caption "演唱会精彩片段"
+```
+
+参数说明：
+- `--width`: 输出视频宽度，默认1080
+- `--height`: 输出视频高度，默认1920
+- `--focus`: 焦点模式（auto/center/face/motion），默认auto
+- `--blur`: 背景模糊程度（0-100），默认30
+- `--bg-color`: 背景颜色，默认black
+- `--zoom`: 放大因子，默认1.2
+- `--quality`: 输出质量（low/medium/high），默认medium
+- `--caption`: 添加标题文本
+- `--gpu`: 使用GPU加速（如果可用）
+
 ### 示例
 
 ```bash
@@ -161,6 +221,10 @@ python autocut.py concert.mp4 highlights.mp4 --threshold 0.5
 
 # 使用FFmpeg版本处理大型视频文件
 python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8 --scene-threshold 0.3
+
+# 完整工作流：提取高潮片段并转换为竖屏格式
+python autocut_ffmpeg.py concert.mp4 highlights.mp4
+python vertical_converter.py highlights.mp4 vertical_highlights.mp4 --focus face --caption "精彩演唱会"
 ```
 
 ### 工作原理
@@ -170,6 +234,7 @@ python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8
 3. **高潮检测**：基于多种特征综合评分，检测视频中的高潮部分
 4. **智能剪辑**：选择评分最高的片段，添加淡入淡出效果，生成精彩集锦
 5. **可视化分析**：生成分析图表，展示检测过程和结果
+6. **竖屏转换**（可选）：将横屏视频转换为适合短视频平台的竖屏格式
 
 ### 版本说明
 
@@ -185,12 +250,19 @@ python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8
 - 更强大的错误处理和恢复机制
 - 需要系统安装FFmpeg
 
+#### 竖屏转换器 (`vertical_converter.py`)
+- 将横屏视频转换为竖屏格式（9:16比例）
+- 智能焦点检测（人脸、运动区域）
+- 背景模糊和自定义样式选项
+- 为短视频平台优化
+
 ### 注意事项
 
 - 处理大型视频文件可能需要较长时间
 - 推荐使用高质量的视频源以获得更好的检测效果
 - 对于不同类型的演唱会，可能需要调整参数以获得最佳效果
 - 对于超过2小时的视频，建议使用FFmpeg版本
+- 竖屏转换对有明确焦点的视频效果最佳
 
 ---
 
@@ -209,6 +281,7 @@ AutoCut est un outil d'édition vidéo basé sur l'IA, conçu pour les créateur
 - Paramètres personnalisables pour des effets d'édition flexibles
 - **Mode faible mémoire** pour traiter les fichiers vidéo volumineux
 - **Implémentation basée sur FFmpeg** pour une compatibilité et des performances améliorées
+- **Conversion en format vertical** pour les plateformes de vidéos courtes (TikTok, Instagram, etc.)
 
 ### Installation
 
@@ -230,6 +303,12 @@ python autocut.py video_entree.mp4 video_sortie.mp4
 python autocut_ffmpeg.py video_entree.mp4 video_sortie.mp4
 ```
 
+#### Conversion en format vertical
+
+```bash
+python vertical_converter.py video_entree.mp4 video_verticale.mp4
+```
+
 #### Paramètres avancés
 
 ```bash
@@ -246,6 +325,23 @@ Description des paramètres :
 - `--low-memory` : Activer le mode faible mémoire pour les fichiers vidéo volumineux (par défaut : auto)
 - `--chunk-size` : Taille des morceaux pour le traitement en mode faible mémoire (secondes), par défaut 300
 
+#### Paramètres du convertisseur vertical
+
+```bash
+python vertical_converter.py video_entree.mp4 video_verticale.mp4 --focus face --blur 50 --caption "Moments forts du concert"
+```
+
+Description des paramètres :
+- `--width` : Largeur de la vidéo de sortie, par défaut 1080
+- `--height` : Hauteur de la vidéo de sortie, par défaut 1920
+- `--focus` : Mode de focus (auto/center/face/motion), par défaut auto
+- `--blur` : Niveau de flou d'arrière-plan (0-100), par défaut 30
+- `--bg-color` : Couleur d'arrière-plan, par défaut black
+- `--zoom` : Facteur de zoom, par défaut 1,2
+- `--quality` : Qualité de sortie (low/medium/high), par défaut medium
+- `--caption` : Ajouter un texte de légende à la vidéo
+- `--gpu` : Utiliser l'accélération GPU si disponible
+
 ### Exemples
 
 ```bash
@@ -257,6 +353,10 @@ python autocut.py concert.mp4 highlights.mp4 --threshold 0.5
 
 # Traiter un fichier vidéo volumineux avec la version FFmpeg
 python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8 --scene-threshold 0.3
+
+# Flux de travail complet : extraire les moments forts et convertir en format vertical
+python autocut_ffmpeg.py concert.mp4 highlights.mp4
+python vertical_converter.py highlights.mp4 vertical_highlights.mp4 --focus face --caption "Concert Incroyable"
 ```
 
 ### Comment ça fonctionne
@@ -266,6 +366,7 @@ python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8
 3. **Détection des moments forts** : Détection des moments forts basée sur une notation complète de plusieurs caractéristiques
 4. **Édition intelligente** : Sélection des clips les mieux notés, ajout d'effets de fondu, génération d'une compilation de moments forts
 5. **Analyse visuelle** : Génération de graphiques d'analyse montrant le processus de détection et les résultats
+6. **Conversion verticale** (optionnelle) : Conversion de la vidéo horizontale en format vertical pour les plateformes de vidéos courtes
 
 ### Versions
 
@@ -281,9 +382,16 @@ python autocut_ffmpeg.py large_concert.mp4 highlights.mp4 --volume-threshold 0.8
 - Gestion des erreurs et récupération plus robustes
 - Nécessite que FFmpeg soit installé sur votre système
 
+#### Convertisseur vertical (`vertical_converter.py`)
+- Convertit les vidéos horizontales en format vertical (rapport d'aspect 9:16)
+- Détection intelligente de la zone d'intérêt (visages, mouvement)
+- Options de flou d'arrière-plan et de style personnalisé
+- Optimisé pour les plateformes de vidéos courtes
+
 ### Remarques
 
 - Le traitement de fichiers vidéo volumineux peut nécessiter un temps considérable
 - Des sources vidéo de haute qualité sont recommandées pour de meilleurs résultats de détection
 - Les paramètres peuvent nécessiter des ajustements pour différents types de concerts afin d'obtenir des résultats optimaux
 - Pour les vidéos de plus de 2 heures, utilisez la version FFmpeg
+- La conversion verticale fonctionne mieux avec des vidéos qui ont des points focaux clairs
