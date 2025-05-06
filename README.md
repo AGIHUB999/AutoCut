@@ -395,3 +395,102 @@ python vertical_converter.py highlights.mp4 vertical_highlights.mp4 --focus face
 - Les paramètres peuvent nécessiter des ajustements pour différents types de concerts afin d'obtenir des résultats optimaux
 - Pour les vidéos de plus de 2 heures, utilisez la version FFmpeg
 - La conversion verticale fonctionne mieux avec des vidéos qui ont des points focaux clairs
+
+---
+
+## 内容生成器 (Content Generator)
+
+内容生成器是一个强大的工具，可以自动分析视频内容，并生成吸引眼球的标题和封面，帮助您的视频在短视频平台上获得更多曝光。
+
+### 功能
+
+- **语音识别**：从视频中提取语音内容，转换为文本
+- **OCR文本识别**：识别视频中出现的文字
+- **智能标题生成**：根据视频内容自动生成多个吸引眼球的标题
+- **精美封面制作**：选择最佳视频帧，添加文字和特效，生成多个候选封面
+- **多种风格选择**：支持多种标题和封面风格，满足不同平台和受众需求
+
+### 使用方法
+
+```bash
+python content_generator.py input_video.mp4 [options]
+```
+
+#### 基本参数
+
+- `input`: 输入视频文件路径（必需）
+- `-o, --output`: 输出目录路径（可选，默认为视频文件所在目录）
+
+#### 高级参数
+
+- `--frame-interval`: 截取帧的间隔（秒），默认为5
+- `--no-speech`: 禁用语音识别
+- `--no-ocr`: 禁用OCR文本识别
+- `--title-style`: 标题风格，可选值: exciting, funny, emotional, informative
+- `--cover-style`: 封面风格，可选值: modern, minimal, dramatic, colorful
+- `--language`: 语言，可选值: auto, zh, en
+- `--max-title-length`: 标题最大长度，默认为50
+- `--api-key`: OpenAI API密钥（用于更高质量的标题生成）
+- `--font-path`: 自定义字体路径
+- `--use-gpu`: 使用GPU加速（如果可用）
+- `--thumbnail-count`: 生成的候选封面数量，默认为5
+- `--title-count`: 生成的候选标题数量，默认为3
+
+### 示例
+
+生成中文风格的标题和封面：
+
+```bash
+python content_generator.py concert.mp4 --language zh --title-style exciting --cover-style dramatic
+```
+
+使用OpenAI API生成更高质量的标题：
+
+```bash
+python content_generator.py interview.mp4 --api-key YOUR_OPENAI_API_KEY --title-count 5
+```
+
+### 依赖
+
+- OpenCV: `pip install opencv-python`
+- Pillow: `pip install pillow`
+- SpeechRecognition: `pip install SpeechRecognition`
+- Pytesseract: `pip install pytesseract`
+- FFmpeg: 必须安装并添加到系统PATH
+
+### 输出
+
+内容生成器会在输出目录中创建以下文件：
+
+- `titles.txt`: 生成的标题列表
+- `thumbnails/`: 包含生成的封面图像的目录
+- `transcription.txt`: 视频的语音转录文本（如果启用）
+- `ocr_text.txt`: 视频中识别的文本（如果启用）
+- `metadata.json`: 包含视频信息和生成内容的元数据
+
+## 完整工作流示例
+
+以下是使用AutoCut工具链处理演唱会视频的完整工作流示例：
+
+1. **提取高潮片段**：
+```bash
+python autocut_ffmpeg.py concert_full.mp4 --output concert_highlights.mp4 --threshold 0.8 --min-clip-length 15 --max-clip-length 30
+```
+
+2. **转换为竖屏格式**：
+```bash
+python vertical_converter.py concert_highlights.mp4 --output concert_vertical.mp4 --focus-mode face --blur 10 --zoom 1.2
+```
+
+3. **生成标题和封面**：
+```bash
+python content_generator.py concert_vertical.mp4 --title-style exciting --cover-style dramatic --language zh
+```
+
+完成这三个步骤后，您将获得：
+- 一个包含演唱会精彩片段的横屏视频
+- 一个针对短视频平台优化的竖屏版本
+- 多个吸引眼球的标题选项
+- 多个精美的封面图像选项
+
+这样，您就可以选择最佳的标题和封面，将视频上传到短视频平台，吸引更多观众！
